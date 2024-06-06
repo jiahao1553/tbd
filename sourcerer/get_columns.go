@@ -83,8 +83,8 @@ func (dc *DuckConn) GetColumns(ctx context.Context, t shared.SourceTable) ([]sha
 
 func (pgc *PgConn) GetColumns(ctx context.Context, t shared.SourceTable) ([]shared.Column, error) {
 	var cs []shared.Column
-	q := "SELECT column_name, data_type FROM information_schema.columns WHERE table_schema = '?' AND table_name = '?'"
-	rows, err := pgc.Db.QueryContext(ctx, q, pgc.Schema, t.Name)
+	q := "SELECT column_name, data_type FROM information_schema.columns WHERE table_schema = $1 AND table_name = $2"
+	rows, err := pgc.Db.Query(q, pgc.Schema, t.Name)
 	if err != nil {
 		log.Fatalf("Error fetching columns for table %s: %v\n", t.Name, err)
 	}

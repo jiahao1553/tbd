@@ -74,8 +74,8 @@ func (dc *DuckConn) GetSourceTables(ctx context.Context) (shared.SourceTables, e
 func (pgc *PgConn) GetSourceTables(ctx context.Context) (shared.SourceTables, error) {
 	ts := shared.SourceTables{}
 	defer pgc.Cancel()
-	q := "SELECT table_name FROM information_schema.tables WHERE table_schema = '$1'"
-	rows, err := pgc.Db.QueryContext(ctx, q, pgc.Schema)
+	q := "SELECT table_name FROM information_schema.tables WHERE table_schema = $1"
+	rows, err := pgc.Db.Query(q, pgc.Schema)
 	if err != nil {
 		log.Fatalf("Error fetching tables: %v\n", err)
 	}
