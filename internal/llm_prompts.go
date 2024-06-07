@@ -2,15 +2,16 @@ package internal
 
 const (
 	DESC_PROMPT = `Generate a description for a column in a specific table in a data warehouse.
-	Criteria of a good response from you:
+	You MUST return description that meet the following:
+	- it contains description ONLY, nothing else
 	- concise, 1 to 3 sentences
   - able to inform both business users and technical data analyts about the purpose and contents of the column
 	- no assumptions about the data, just use business context, the table name, and the column to generate the description
-	- no title, no formatting, just 1 to 3 sentences
+	- no title, no formatting, not started and ended with double-quotes, no explanation about what you just did, just 1 to 3 sentences
   - avoid using the column name in the description
 	- do not use tautological descriptions. Bad examples are: 'order_id' column -> "This is the id of an order"
 	For example, when a table named 'orders' with a column named 'order_id', I want response like this 'The primary key of the orders table, each distinct order has a unique order_id.'
-  Now, give me description for the table called %s and the column called %s.`
+  Now, give me a description for the table called %s and the column called %s.`
 	TESTS_PROMPT = `Generate a list of tests that can be run on a column in a specific table in a data warehouse,
 the table is called %s and the column is called %s. The tests are YAML config, there are 2 to choose from.
 They have the following structure, follow this structure exactly:
