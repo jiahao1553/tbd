@@ -17,7 +17,7 @@ func (a *Anthropic) GetRateLimiter() (semaphore chan struct{}, limiter *time.Tic
 func getLimiter(mr int) (semaphore chan struct{}, limiter *time.Ticker) {
 	i := time.Minute
 	semaphore = make(chan struct{}, (mr / 2))
-	// We make 2 calls so we divide the rate by 2
-	limiter = time.NewTicker(i / time.Duration(mr/2))
+	// We make 2 calls so we divide 1 min by maximum rate
+	limiter = time.NewTicker(i / time.Duration(mr))
 	return semaphore, limiter
 }

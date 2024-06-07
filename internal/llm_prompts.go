@@ -1,18 +1,16 @@
 package internal
 
 const (
-	DESC_PROMPT = `Generate a description for a column in a specific table in a data warehouse,
-  the table is called %s and the column is called %s. The description should be concise, 1 to 3 sentences,
-  and inform both business users and technical data analyts about the purpose and contents of the column.
-  Avoid using the column name in the description, as it is redundant — put another way do not use tautological
-  descriptions, for example on an 'order_id' column saying "This is the id of an order". Don't do that. A good
-  example for an 'order_id' column would be something like "This is the primary key of the orders table,
-  each distinct order has a unique 'order_id'". Another good example for an orders table would be describing
-  'product_type' as "The category of product, the bucket that a product falls into, for example 'electronics' or 'clothing'".
-  Avoid making assumptions about the data, as you don't have access to it. Don't make assertions about data that you 
-  haven't seen, just use business context, the table name, and the column to generate the description. The description.
-  There is no need to add a title just the sentences that compose the description, it's being put onto a field in a YAML file, 
-so again, no title, no formatting, just 1 to 3 sentences.`
+	DESC_PROMPT = `Generate a description for a column in a specific table in a data warehouse.
+	Criteria of a good response from you:
+	- concise, 1 to 3 sentences
+  - able to inform both business users and technical data analyts about the purpose and contents of the column
+	- no assumptions about the data, just use business context, the table name, and the column to generate the description
+	- no title, no formatting, just 1 to 3 sentences
+  - avoid using the column name in the description
+	- do not use tautological descriptions. Bad examples are: 'order_id' column -> "This is the id of an order"
+	For example, when a table named 'orders' with a column named 'order_id', I want response like this 'The primary key of the orders table, each distinct order has a unique order_id.'
+  Now, give me description for the table called %s and the column called %s.`
 	TESTS_PROMPT = `Generate a list of tests that can be run on a column in a specific table in a data warehouse,
 the table is called %s and the column is called %s. The tests are YAML config, there are 2 to choose from.
 They have the following structure, follow this structure exactly:
