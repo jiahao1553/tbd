@@ -9,7 +9,7 @@ import (
 	"github.com/gwenwindflower/tbd/shared"
 )
 
-func WriteScaffoldProject(cd shared.ConnectionDetails, bd string, pn string) (string, error) {
+func WriteScaffoldProject(cd shared.ConnectionDetails, bd string, pn string, profileName string) (string, error) {
 	folders := []string{"models", "analyses", "macros", "seeds", "snapshots", "data-tests", "models/staging", "models/marts"}
 	emptyFolders := []string{"analyses", "macros", "seeds", "snapshots", "data-tests", "models/marts"}
 	for _, folder := range folders {
@@ -79,6 +79,7 @@ __pycache__
 	}
 	defer o.Close()
 	cd.ProjectName = pn
+	cd.ConnType = profileName
 	err = tmpl.Execute(o, cd)
 	if err != nil {
 		log.Fatalf("Failed to execute dbt_project.yml template %v\n", err)

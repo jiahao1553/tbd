@@ -99,7 +99,8 @@ It's the easy button for starting a dbt project.`, greenBold("A sweet and speedy
 				internal.WriteProfile(cd, bd)
 			}
 			if fr.ScaffoldProject {
-				s, err := internal.WriteScaffoldProject(cd, bd, fr.ProjectName)
+				// include DbtProfileName because currently, profile is pointing to connection type
+				s, err := internal.WriteScaffoldProject(cd, bd, fr.ProjectName, fr.DbtProfileName)
 				if err != nil {
 					log.Fatalf("Error scaffolding project: %v\n", err)
 				}
