@@ -105,7 +105,8 @@ It's the easy button for starting a dbt project.`, greenBold("A sweet and speedy
 				}
 				bd = s
 			}
-			err = internal.WriteFiles(ts, bd, fr.Prefix)
+			// include database and schema because both are missing in the _sources.yml, which are required
+			err = internal.WriteFiles(ts, bd, fr.Prefix, &fr.Database, &fr.Schema)
 			if err != nil {
 				log.Fatalf("Error writing files: %v\n", err)
 			}

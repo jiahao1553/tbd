@@ -85,7 +85,7 @@ func (pgc *PgConn) GetSourceTables(ctx context.Context) (shared.SourceTables, er
 		if err := rows.Scan(&table.Name); err != nil {
 			log.Fatalf("Error scanning tables: %v\n", err)
 		}
-		table.Schema = pgc.Schema
+		table.Schema = pgc.Database // pgc.Schema
 		ts.SourceTables = append(ts.SourceTables, table)
 	}
 	return ts, nil

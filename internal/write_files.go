@@ -7,7 +7,7 @@ import (
 	"github.com/gwenwindflower/tbd/shared"
 )
 
-func WriteFiles(ts shared.SourceTables, bd string, prefix string) error {
+func WriteFiles(ts shared.SourceTables, bd string, prefix string, database *string, schema *string) error {
 	if len(ts.SourceTables) == 0 {
 		return errors.New("no tables to write")
 	}
@@ -15,7 +15,7 @@ func WriteFiles(ts shared.SourceTables, bd string, prefix string) error {
 	wg.Add(2)
 	go func() {
 		defer wg.Done()
-		WriteYAML(ts, bd)
+		WriteYAML(ts, bd, database, schema)
 	}()
 	go func() {
 		defer wg.Done()
