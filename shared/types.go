@@ -1,10 +1,11 @@
 package shared
 
 type Column struct {
-	Name        string   `yaml:"name"`
-	Description string   `yaml:"description"`
-	DataType    string   `yaml:"data_type"`
-	Tests       []string `yaml:"tests"`
+	Name        string `yaml:"name"`
+	Description string `yaml:"description"`
+	DataType    string `yaml:"data_type"`
+	// rename to data_tests as per dbt deprecation note
+	Tests []string `yaml:"data_tests"`
 }
 
 type SourceTable struct {
