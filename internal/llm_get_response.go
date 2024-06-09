@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 func (o *OpenAI) GetResponse(prompt string) error {
@@ -38,6 +39,10 @@ func (o *OpenAI) GetResponse(prompt string) error {
 		return fmt.Errorf("request failed: %v", err)
 	}
 	defer response.Body.Close()
+	if response.StatusCode == http.StatusTooManyRequests {
+		time.Sleep(time.Duration(60) * time.Second) // wait for 1 minute
+		return o.GetResponse(prompt)
+	}
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("request failed with status code: %v", response.StatusCode)
 	}
@@ -82,6 +87,10 @@ func (o *Groq) GetResponse(prompt string) error {
 		return fmt.Errorf("request failed: %v", err)
 	}
 	defer response.Body.Close()
+	if response.StatusCode == http.StatusTooManyRequests {
+		time.Sleep(time.Duration(60) * time.Second) // wait for 1 minute
+		return o.GetResponse(prompt)
+	}
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("request failed with status code: %v", response.StatusCode)
 	}
@@ -127,6 +136,10 @@ func (a *Anthropic) GetResponse(prompt string) error {
 		return fmt.Errorf("request failed: %v", err)
 	}
 	defer response.Body.Close()
+	if response.StatusCode == http.StatusTooManyRequests {
+		time.Sleep(time.Duration(60) * time.Second) // wait for 1 minute
+		return a.GetResponse(prompt)
+	}
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("request failed with status code: %v", response.StatusCode)
 	}
